@@ -9,7 +9,7 @@ const Navbar = () => {
 
           <p>DevEvent</p>
         </Link>
-        <div>
+        <div className="flex items-center gap-6">
           <Link href="/">Home</Link>
           <Link href="/">Events</Link>
           <Link href="/">Create Event</Link>
