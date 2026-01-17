@@ -140,9 +140,6 @@ EventSchema.pre('save', function () {
   }
 });
 
-// Create unique index on slug for faster queries and ensure uniqueness
-EventSchema.index({ slug: 1 }, { unique: true });
-
 // Export Event model
 const Event: Model<IEvent> = mongoose.models.Event || mongoose.model<IEvent>('Event', EventSchema);
 
