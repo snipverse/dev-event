@@ -252,14 +252,16 @@
   }
 
   #book-event {
-    @apply flex flex-col gap-6;
+    @apply flex flex-col gap-8;
 
     form {
       @apply flex flex-col gap-6;
 
       div {
-        @apply flex flex-col gap-2;
-
+        @apply flex flex-col gap-3;
+        label {
+          @apply font-semibold;
+        }
         input {
           @apply bg-dark-200 rounded-[6px] px-5 py-2.5;
         }
