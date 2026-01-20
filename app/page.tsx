@@ -1,10 +1,7 @@
 import ExploreBtn from "@/components/ExploreBtn"
 import EventCard from "@/components/EventCard"
-import { IEvent } from "@/database";
 import { cacheLife } from "next/cache"
-import events from "@/lib/constants"
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+import { events, EventItem } from "@/lib/constants"
 
 const page = async () => {
   'use cache';
@@ -14,7 +11,7 @@ const page = async () => {
   
   return (
     <section id='home'>
-      <h1 className="text-center">The Hub for every Dev <br /> Event you  Can't miss</h1>
+      <h1 className="text-center">The Hub for every Dev <br /> Event you  Can&apos;t miss</h1>
       <p className="text-center mt-5">Hackthon, Meetups, and conferences, All in one Place.</p>
       <ExploreBtn />
 
@@ -22,7 +19,7 @@ const page = async () => {
         <h3>Featured Events</h3>
 
         <ul className="events">
-          {events && events.length > 0 && events.map((event: IEvent)=> (
+          {events && events.length > 0 && events.map((event: EventItem) => (
             <li key={event.title}>
               <EventCard {...event} />
             </li>
