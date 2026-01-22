@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 import Image from "next/image";
 import { Book } from "lucide-react";
 import BookEvents from "@/components/BookEvents";
@@ -55,7 +55,7 @@ const EventDetail = async  ({ params }: { params: Promise<string> }) => {
   cacheLife('hours');
   const slug = await params;
 
-  const request = await fetch(`${BASE_URL}/api/events/${slug}`);
+  const request = await fetch(`/api/events/${slug}`);
     
     const { event: { _id, description, image, title, overview, date, time, agenda, audience, tags, organizer, location, mode} } = await request.json();
 
