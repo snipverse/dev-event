@@ -9,7 +9,7 @@ export type EventCardData = {
   title: string;
   location: string;
   date?: string;
-  imageUrl?: string;
+  image?: string;
 };
 
 export const getEvents = async (): Promise<{ events: EventCardData[] }> => {
@@ -24,7 +24,7 @@ export const getEvents = async (): Promise<{ events: EventCardData[] }> => {
         title: event.title,
         location: event.location,
         date: event.date,
-        imageUrl: event.image,
+        image: event.image,
       })),
     };
   } catch {

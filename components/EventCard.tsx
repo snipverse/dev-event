@@ -14,7 +14,7 @@ interface props {
 const EventCard = ({ title, image, slug, location, date, time }: props) => {
   return (
     <Link href={`/events/${slug}`} id="event-card">
-      <Image src={image} alt={title} height={300} width={410} className="poster"/>
+      <Image src={image || "/placeholder.png"} alt={title} height={300} width={410} className="poster"/>
 
       <p className="title">{title}</p>
 
