@@ -1,10 +1,40 @@
-export const dynamic = "force-dynamic";
+"use client";
 
-import { getEvents, type EventCardData } from "@/lib/actions/event.actions";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-const EventsPage = async () => {
-  const data = await getEvents();
-  const events = data?.events ?? [];
+
+type EventCardData = {
+  _id: string;
+  slug: string;
+  title: string;
+  location: string;
+  date?: string;
+};
+
+const EventsPage = () => {
+  const [events, setEvents] = useState<EventCardData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const response = await fetch("/api/events");
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+
+        const payload = await response.json();
+        setEvents(payload?.events ?? []);
+      } catch (error) {
+        console.error(error);
+        setEvents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -18,7 +48,11 @@ const EventsPage = async () => {
           </p>
         </div>
 
-        {events.length === 0 ? (
+        {loading ? (
+          <p className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-sm text-white/75">
+            Loading...
+          </p>
+        ) : events.length === 0 ? (
           <p className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-sm text-white/75">
             No events found
           </p>
