@@ -1,5 +1,5 @@
-import Link from "next/link"
-import Image from "next/image"
+import Link from "next/link";
+import Image from "next/image";
 const Navbar = () => {
   return (
     <header>
@@ -11,12 +11,12 @@ const Navbar = () => {
         </Link>
         <div className="flex items-center gap-6">
           <Link href="/">Home</Link>
-          <Link href="/">Events</Link>
-          <Link href="/">Create Event</Link>
+          <Link href="/events">Events</Link>
+          <Link href="/create-event">Create Event</Link>
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

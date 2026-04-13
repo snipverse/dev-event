@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 // TypeScript interface for the cached connection
 interface MongooseCache {
@@ -8,7 +8,6 @@ interface MongooseCache {
 
 // Extend the global namespace to include our mongoose cache
 declare global {
-  // eslint-disable-next-line no-var
   var mongoose: MongooseCache | undefined;
 }
 
@@ -18,12 +17,12 @@ const MONGODB_URI = process.env.MONGODB_URI;
 // Validate that the MongoDB URI is defined
 if (!MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
+    "Please define the MONGODB_URI environment variable inside .env.local",
   );
 }
 
 // Initialize the cache on the global object to persist across hot reloads in development
-let cached: MongooseCache = global.mongoose || { conn: null, promise: null };
+const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
 
 if (!global.mongoose) {
   global.mongoose = cached;
@@ -31,10 +30,10 @@ if (!global.mongoose) {
 
 /**
  * Establishes a connection to MongoDB using Mongoose.
- * 
+ *
  * This function implements connection caching to prevent multiple
  * connections from being created during development hot reloads.
- * 
+ *
  * @returns A Promise that resolves to the Mongoose instance
  */
 async function connectToDatabase(): Promise<typeof mongoose> {

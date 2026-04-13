@@ -30,6 +30,9 @@ interface LightRaysProps {
   className?: string;
 }
 
+type UniformValue = number | [number, number] | [number, number, number];
+type Uniforms = Record<string, { value: UniformValue }>;
+
 const DEFAULT_COLOR = "#ffffff";
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -46,7 +49,7 @@ const hexToRgb = (hex: string): [number, number, number] => {
 const getAnchorAndDir = (
   origin: RaysOrigin,
   w: number,
-  h: number
+  h: number,
 ): { anchor: [number, number]; dir: [number, number] } => {
   const outside = 0.2;
   switch (origin) {
@@ -87,12 +90,12 @@ const LightRays: React.FC<LightRaysProps> = ({
   className = "",
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const uniformsRef = useRef<any>(null);
+  const uniformsRef = useRef<Uniforms | null>(null);
   const rendererRef = useRef<Renderer | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const smoothMouseRef = useRef({ x: 0.5, y: 0.5 });
   const animationIdRef = useRef<number | null>(null);
-  const meshRef = useRef<any>(null);
+  const meshRef = useRef<Mesh | null>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -105,7 +108,7 @@ const LightRays: React.FC<LightRaysProps> = ({
         const entry = entries[0];
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observerRef.current.observe(containerRef.current);
@@ -445,7 +448,7 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none relative z-[3] h-full w-full overflow-hidden ${className}`.trim()}
+      className={`pointer-events-none relative z-3 h-full w-full overflow-hidden ${className}`.trim()}
     />
   );
 };
