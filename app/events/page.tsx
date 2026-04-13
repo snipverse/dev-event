@@ -1,6 +1,7 @@
+export const dynamic = "force-dynamic";
+
 import { getEvents, type EventCardData } from "@/lib/actions/event.actions";
 import Link from "next/link";
-
 const EventsPage = async () => {
   const data = await getEvents();
   const events = data?.events ?? [];
