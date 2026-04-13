@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import BookEvents from "@/components/BookEvents";
 import { IEvent } from "@/database";
-import { getSimilarEventsBySlug } from "@/lib/actions/event.actions";
+import {
+  getEventBySlug,
+  getSimilarEventsBySlug,
+} from "@/lib/actions/event.actions";
 import EventCard from "@/components/EventCard";
 import { cacheLife } from "next/cache";
 import { getBookingCount } from "@/lib/actions/booking.actions";
@@ -59,28 +62,23 @@ const EventDetail = async ({
   cacheLife("hours");
 
   const { slug } = await params;
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const request = await fetch(`${BASE_URL}/api/events/${slug}`);
-  if (!request.ok) return notFound();
-  const payload = await request.json();
-  if (!payload?.event) return notFound();
+  const event = await getEventBySlug(slug);
+  if (!event) return notFound();
 
   const {
-    event: {
-      _id,
-      description,
-      image,
-      overview,
-      date,
-      time,
-      agenda,
-      audience,
-      tags,
-      organizer,
-      location,
-      mode,
-    },
-  } = payload;
+    _id,
+    description,
+    image,
+    overview,
+    date,
+    time,
+    agenda,
+    audience,
+    tags,
+    organizer,
+    location,
+    mode,
+  } = event;
 
   if (!description) return notFound();
 
